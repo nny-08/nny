@@ -3,19 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <title>扭蛋抽獎</title>
-<link rel="stylesheet" href="css/style.css">
 <script src="js/main.js" defer></script>
 </head>
 <body>
     <h1>扭蛋抽獎</h1>
-    <img src="images/gacha_machine.png" alt="扭蛋機">
     <button onclick="drawGacha()">抽獎</button>
     <p id="remaining">剩餘抽獎數：100</p>
 
     <!-- 獎品彈窗 -->
-    <div id="prizePopup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#fff; padding:20px; border:2px solid #000;">
-        <img id="prizeImg" src="" alt="獎品" width="200">
-        <button onclick="closePopup()" style="position:absolute; top:5px; right:5px;">X</button>
+    <div id="prizePopup" style="display:none; border:1px solid #000; padding:10px; width:200px; background:#eee;">
+        <p id="prizeText">你抽中了...</p>
+        <button onclick="closePopup()">關閉</button>
     </div>
 </body>
 </html>
