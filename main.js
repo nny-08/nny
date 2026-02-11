@@ -28,9 +28,9 @@ async function drawGacha() {
     const data = await res.json();
 
     if (data.success) {
-        document.getElementById('prizeImg').src = `images/prize_${data.prize}.png`;
+        // 顯示抽中的獎品文字
+        document.getElementById('prizeText').innerText = `恭喜抽中獎品: ${data.prize}`;
         document.getElementById('prizePopup').style.display = 'block';
-        new Audio('audio/prize_sound.mp3').play();
 
         const total = Object.values(data.remaining).reduce((a,b)=>a+b,0);
         document.getElementById('remaining').innerText = `剩餘抽獎數：${total}`;
