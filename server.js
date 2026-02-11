@@ -7,7 +7,6 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.static('public'));
 
-// JSON 路徑
 const CODES_FILE = path.join(__dirname, 'data', 'codes.json');
 const PRIZES_FILE = path.join(__dirname, 'data', 'prizes.json');
 
@@ -24,7 +23,7 @@ if (!fs.existsSync(PRIZES_FILE)) {
 // 初始化驗證碼檔案
 if (!fs.existsSync(CODES_FILE)) fs.writeFileSync(CODES_FILE, JSON.stringify([]));
 
-// 生成新驗證碼
+// 後台生成新驗證碼
 app.get('/admin/new-code', (req, res) => {
     const codes = JSON.parse(fs.readFileSync(CODES_FILE));
     let newCode;
@@ -64,7 +63,7 @@ app.post('/draw', (req, res) => {
     const user = codes.find(c => c.code === code && !c.used);
     if (!user) return res.json({ success: false, message: "驗證碼無效" });
 
-    // 建立權重列表
+    // 權重列表
     let weightedList = [];
     Object.keys(prizesData).forEach(key => {
         if (prizesData[key] > 0) {
@@ -85,5 +84,4 @@ app.post('/draw', (req, res) => {
     res.json({ success: true, prize, remaining: prizesData });
 });
 
-// 啟動伺服器
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
