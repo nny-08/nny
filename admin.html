@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>後台管理</title>
+<script>
+async function loadCodes() {
+    const res = await fetch('/admin/codes');
+    const codes = await res.json();
+    const table = document.getElementById('codesTable');
+    table.innerHTML = "<tr><th>驗證碼</th><th>使用狀態</th><th>抽獎歷史</th></tr>";
+    codes.forEach(c => {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td>${c.code}</td><td>${c.used}</td><td>${c.history.join(', ')}</td>`;
+        table.appendChild(row);
+    });
+}
+
+async function generateCode() {
+    const res = await fetch('/admin/new-code');
+    const data = await res.json();
+    alert("新驗證碼：" + data.code);
+    loadCodes();
+}
+
+window.onload = loadCodes;
+</script>
+</head>
+<body>
+<h1>後台管理</h1>
+<button onclick="generateCode()">生成新驗證碼</button>
+<table border="1" id="codesTable"></table>
+</body>
+</html>
